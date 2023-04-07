@@ -1,0 +1,105 @@
+int in1 = 8;
+int in2 = 9;
+int in3 = 3;
+int in4 = 4;
+int enA = 10;
+int enB = 11;
+int HA0 = A0; 
+int HA1 = A1;  
+int HA2 = A2; 
+int HA3 = A3;  
+int HA4 = A4; 
+int trigPin = 5;
+int echoPin = 6;
+
+long duration; //
+int distance;  // biến khoảng cách
+
+void setup()
+{
+  pinMode(HA0, INPUT);
+  pinMode(HA1, INPUT); 
+  pinMode(HA2, INPUT);
+  pinMode(HA3, INPUT);
+  pinMode(HA4, INPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(enA, OUTPUT);
+  pinMode(enB, OUTPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+ 
+  
+}
+
+
+void loop()
+{
+ 
+  int a1 = digitalRead(A1);
+  int a2 = digitalRead(A2);
+  int a3 = digitalRead(A3);
+  int a4 = digitalRead(A4);
+  int a0 = digitalRead(A0);
+  
+  
+  
+
+  switch ((a0 << 4) | (a1 << 3) | (a2 << 2) | (a3 << 1) | a4) {
+//    case 0b11111: // Ca 4 CB o vach den 00000
+//      digitalWrite(in1, HIGH);
+//      digitalWrite(in2, LOW);
+//      digitalWrite(in3, HIGH);
+//      digitalWrite(in4, LOW);
+//       analogWrite(enA,140);
+//       analogWrite(enB, 140);
+//       delay (500);
+//      
+//      
+//      break;
+    
+    case 0b11011: // Chay thang 11011
+      digitalWrite(in1, HIGH);
+      digitalWrite(in2, LOW);
+      digitalWrite(in3, HIGH);
+      digitalWrite(in4, LOW);
+      analogWrite(enA,255);
+      analogWrite(enB,255);
+     
+      break;
+    case 0b01111:
+    case 0b00111:
+    // A chay B dung 01111
+      digitalWrite(in1, HIGH);
+      digitalWrite(in2, LOW);
+      digitalWrite(in3, LOW);
+      digitalWrite(in4, LOW);
+      analogWrite(enA, 255);
+      analogWrite(enB,255);
+      break;
+    case 0b11110: // B chay A dung 11110
+    case 0b11100:
+      digitalWrite(in1, LOW);
+      digitalWrite(in2, LOW);
+      digitalWrite(in3, HIGH);
+      digitalWrite(in4, LOW);
+      analogWrite(enA, 255);
+      analogWrite(enB, 255 );
+      
+      break;
+      case 0b00000:
+      digitalWrite(in1, LOW);
+      digitalWrite(in2, LOW);
+      digitalWrite(in3, LOW);
+      digitalWrite(in4, LOW);
+      analogWrite(enA, 0);
+      analogWrite(enB, 0 );
+      
+      break;
+    default:
+      Serial.println("Khong khop voi bat ky truong hop nao");
+      
+  }
+}

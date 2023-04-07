@@ -1,0 +1,52 @@
+analogWrite(enB, 150);
+  delay(00);
+  //motor B lùi
+  digitalWrite(int3, LOW);
+  digitalWrite(int4, HIGH);
+  analogWrite(enA, 150);
+  analogWrite(enB,150);
+  delay(500);
+}
+
+void Turn_right()
+{
+  //motor A lùi
+  digitalWrite(int1, HIGH);
+  digitalWrite(int2, LOW);
+  analogWrite(enA, 150);
+  analogWrite(enB, 150);
+  delay(500);
+  //motor B tiến
+  digitalWrite(int3, HIGH);
+  digitalWrite(int4, LOW);
+  analogWrite(enA, 0);
+  analogWrite(enB, 150);
+  delay(500);
+}
+void Turn_left()
+{
+  //motor A tiến
+  digitalWrite(int1, HIGH);
+  digitalWrite(int2, LOW);
+   analogWrite(enA, 200);
+  analogWrite(enB, 200);
+  delay(500);
+  //motor B lùi
+  digitalWrite(int3, HIGH);
+  digitalWrite(int4, LOW);
+  analogWrite(enA, 200);
+  analogWrite(enB, 0);
+  delay(200);
+}
+void Robot_stop()
+{
+  //motor A dung
+  digitalWrite(int1, HIGH);
+  digitalWrite(int2, HIGH);
+  delay(200);
+  //motor B dung
+  digitalWrite(int3, HIGH);
+  digitalWrite(int4, HIGH);
+  analogWrite(enA, 0);
+  analogWrite(enB, 0);
+}

@@ -1,0 +1,6 @@
+Compiling D:\ROBOT\THIROBOT on 02-Apr-23 at 12:28
+>>> Warning 244 "D:\ROBOT\THIROBOT.c" Line 98(1,1): Function Param:   8-bit value passed to function, only 8 MSB of duty will be set
+>>> Warning 244 "D:\ROBOT\THIROBOT.c" Line 109(1,1): Function Param:   8-bit value passed to function, only 8 MSB of duty will be set
+      Memory usage:   ROM=9%      RAM=6% - 8%
+      0 Errors,  2 Warnings.
+Build Successful.

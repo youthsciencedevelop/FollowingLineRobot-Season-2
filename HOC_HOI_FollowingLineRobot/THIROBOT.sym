@@ -1,0 +1,122 @@
+004-005 @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020.0   s1
+020.1   s2
+020.2   s3
+020.3   s4
+020.4   s5
+021     @TRIS_C
+022     lcd_init.i
+022     MAIN.@SCRATCH1
+023-026 lcd_init.LCD_INIT_STRING
+023     MAIN.@SCRATCH2
+024     MAIN.@SCRATCH3
+025     MAIN.@SCRATCH4
+026     MAIN.@SCRATCH5
+027     @PRINTF_D_724.P1
+027     lcd_init.@SCRATCH1
+027     MAIN.@SCRATCH6
+028     @PRINTF_D_724.P1
+028     MAIN.@SCRATCH7
+029     MAIN.@SCRATCH8
+029     @PRINTF_D_724.@SCRATCH1
+02A     MAIN.@SCRATCH9
+02A     @PRINTF_D_724.@SCRATCH2
+02B     MAIN.@SCRATCH10
+02B     @PRINTF_D_724.@SCRATCH3
+02C     MAIN.@SCRATCH11
+02C     @PRINTF_D_724.@SCRATCH4
+02D     lcd_putc.c
+02D     @DIV88.P1
+02D     MAIN.@SCRATCH12
+02E     lcd_gotoxy.x
+02E     @delay_ms1.P1
+02E     @DIV88.P2
+02E     MAIN.@SCRATCH13
+02F     lcd_gotoxy.y
+02F     MAIN.@SCRATCH14
+02F     @DIV88.@SCRATCH1
+030     lcd_gotoxy.address
+030     MAIN.@SCRATCH15
+031     lcd_gotoxy.@SCRATCH1
+031     MAIN.@SCRATCH16
+032     lcd_send_byte.address
+033     lcd_send_byte.n
+034     lcd_read_byte.low
+034     lcd_send_byte.@SCRATCH1
+035     lcd_read_byte.high
+035     lcd_send_nibble.n
+036     lcd_read_nibble.n
+036     lcd_read_byte.@SCRATCH1
+037     lcd_read_nibble.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @delay_ms1
+000018  lcd_send_nibble
+000046  lcd_read_nibble
+000077  lcd_send_byte
+00007F  lcd_read_byte
+0000D5  lcd_init
+00011B  tien_nguocchieukimdongho
+000140  quayphai
+000160  quaytrai
+000180  lcd_gotoxy
+000192  @DIV88
+0001A7  lcd_putc
+0001D3  @PRINTF_D_724
+00022A  @cinit1
+00022A  MAIN
+000236  @cinit2
+
+Project Directory:
+    D:\ROBOT\
+
+Project Files:
+    THIROBOT.c                                              [02-Apr-23 11:51  CRC=79F6B59F]
+    THIROBOT.h                                              [02-Apr-23 07:52  CRC=00000000]
+    C:\Program Files (x86)\PICC\Devices\16F877A.h           [21-Jan-21 11:32  CRC=DB498A92]
+    C:\Program Files (x86)\PICC\Drivers\LCD.C               [22-Feb-16 09:05  CRC=D1A6378A]
+
+Source signature=F88CAF45
+Program memory checksum=0000
+Hex file CRC=40A1
+
+Units:
+    D:\ROBOT\THIROBOT (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Compile Mode:   CCS5
+
+Output Files:
+    XREF file:   THIROBOT.xsym
+    Errors:      THIROBOT.err
+    Ext Symbols: THIROBOT.esym
+    INHX8:       THIROBOT.hex
+    Symbols:     THIROBOT.sym
+    List:        THIROBOT.lst
+    Debug/COFF:  THIROBOT.cof
+    Project:     THIROBOT.ccspjt
+    Call Tree:   THIROBOT.tre
+    Statistics:  THIROBOT.STA

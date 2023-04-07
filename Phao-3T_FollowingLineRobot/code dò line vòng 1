@@ -1,0 +1,157 @@
+// Khai báo các cảm biến
+int Sensor1 = A0;              // cấm cảm biến 1 vào chân A0
+int Sensor2 = A1;              // cấm cảm biến 2 vào chân A1
+int Sensor3 = A2;              // cấm cảm biến 3 vào chân A2
+int Sensor4 = A3;              // cấm cảm biến 4 vào chân A3
+int Sensor5 = A4;              // cấm cảm biến 5 vào chân A4
+int IN1 = 2;              // cấm chân motor1 vào chân 2          
+int IN2 = 4;              // cấm chân motor1 vào chân 4
+int IN3 = 6;              // cấm chân motor2 vào chân 6
+int IN4 = 7;              // cấm chân motor2 vào chân 7
+int ENA = 9;              // cấm chân động cơ A chân 9 (PWM)
+int ENB = 3;              // cấm chân động cơ B chân 3 (PWM)
+
+// Khai báo các đầu vào\ra để điều khiển motor và cảm biến
+void setup(){
+  pinMode(Sensor1,INPUT); 
+  pinMode(Sensor2,INPUT);
+  pinMode(Sensor3,INPUT);
+  pinMode(Sensor4,INPUT);
+  pinMode(Sensor5,INPUT);
+  pinMode(IN1,OUTPUT);
+  pinMode(IN2,OUTPUT);
+  pinMode(IN3,OUTPUT);
+  pinMode(IN4,OUTPUT);
+  pinMode(ENA,OUTPUT);
+  pinMode(ENB,OUTPUT);
+}
+void loop(){
+  int cambien1 = digitalRead(Sensor1);
+  int cambien2 = digitalRead(Sensor2);
+  int cambiengiua = digitalRead(Sensor3);
+  int cambien3 = digitalRead(Sensor4);
+  int cambien4 = digitalRead(Sensor5);
+// lệnh cho cân bằng motor chạy 1 đường thăngr
+// nếu cảm biến giữa tắt thì cho motor đi thẳng
+if (cambien1 == HIGH && cambien2 == HIGH && cambiengiua == LOW && cambien3 == HIGH && cambien4 == HIGH)
+{
+ digitalWrite(IN1,LOW);
+ digitalWrite(IN2,HIGH);
+ digitalWrite(IN3,LOW);
+ digitalWrite(IN4,HIGH);
+ analogWrite(ENA, 120);
+ analogWrite(ENB, 120);
+}
+// hoặc sai thì cảm biến 2 tắt và cho motor rẻ trái 1 đoạn nhỏ để quay về line cũ
+else if (cambien1 == HIGH && cambien2 == LOW && cambiengiua == HIGH && cambien3 == HIGH && cambien4 == HIGH)
+{
+ digitalWrite(IN1,LOW);
+ digitalWrite(IN2,LOW);
+ digitalWrite(IN3,LOW);
+ digitalWrite(IN4,HIGH);
+ analogWrite(ENA, 0);
+ analogWrite(ENB, 100);
+}
+else if (cambien1 == HIGH && cambien2 == HIGH && cambiengiua == HIGH && cambien3 == LOW && cambien4 == HIGH) 
+//hoặc cảm biến 3 tắt thì cho motor rẻ phaỉ 1 đoạn nhỏ để căn bằng
+{
+ digitalWrite(IN1,LOW);
+ digitalWrite(IN2,HIGH);
+ digitalWrite(IN3,LOW);
+ digitalWrite(IN4,LOW);
+ analogWrite(ENA, 100);
+ analogWrite(ENB, 0);
+}
+
+//điều kiện cho motor rẻ trái
+// nếu cảm biến 1 và giữa tắt thì cho motor rẻ trái
+if (cambien1 == LOW && cambien2 == HIGH && cambiengiua == LOW && cambien3 == HIGH && cambien4 == HIGH)
+{
+  digitalWrite(IN1,LOW);
+  digitalWrite(IN2,LOW);
+  digitalWrite(IN3,LOW);
+  digitalWrite(IN4,HIGH);
+  analogWrite(ENA, 0);
+  analogWrite(ENB, 100);
+}
+else if (cambien1 == LOW && cambien2 == LOW && cambiengiua == LOW && cambien3 == HIGH && cambien4 == HIGH) 
+// nếu if sai thì cảm biến 12 và giữa tắt thì cho motor rẻ trái 
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 100);
+}
+else if (cambien1 == HIGH && cambien2 == LOW && cambiengiua == LOW && cambien3 == HIGH && cambien4 == HIGH)
+//hoặc nếu cảm biến 2 và giữa tắt thì rẻ trái tiếp
+{  digitalWrite(IN1,LOW);
+   digitalWrite(IN2,LOW);
+   digitalWrite(IN3,LOW);
+   digitalWrite(IN4,HIGH);
+   analogWrite(ENA, 0);
+   analogWrite(ENB, 100);
+}
+// điều kiện để rẻ phải
+// nếu cảm biến giữa và 4 tắt thì cho rẻ phải
+if (cambien1 == HIGH && cambien2 == HIGH && cambiengiua == LOW && cambien2 == HIGH && cambien4 == LOW)
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 100);
+    analogWrite(ENB, 0);
+}
+else if (cambien1 == HIGH && cambien2 == HIGH && cambiengiua == LOW && cambien3 == LOW && cambien4 == LOW)
+// nếu cảm biến giauw và 34 tắt hết thì cho rẻ phải
+{
+   digitalWrite(IN1,LOW);
+   digitalWrite(IN2,HIGH);
+   digitalWrite(IN3,LOW);
+   digitalWrite(IN4,LOW);
+   analogWrite(ENA, 100);
+   analogWrite(ENB, 0);
+}
+else if (cambien1 == HIGH && cambien2 == HIGH && cambiengiua == HIGH && cambien3 == LOW && cambien4 == LOW) 
+// hoặc nếu cảm biến 34 tắt thì cho rẻ tiếp
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 100);
+    analogWrite(ENB, 0);
+}
+else if (cambien1 == HIGH && cambien2 == HIGH && cambiengiua == LOW && cambien3 == LOW && cambien4 == HIGH) 
+// hoặc nếu cảm biến 34 tắt thì cho rẻ tiếp
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 100);
+    analogWrite(ENB, 0);
+}
+// còn nếu tất cả cảm biến HIGH thì có nghĩa xe dãd ra khỏi line và thực hiện lệnh quay đầu
+if (cambien1 == HIGH && cambien2 == HIGH && cambiengiua == HIGH && cambien3 == HIGH && cambien4 == HIGH) 
+{
+    digitalWrite(IN1,HIGH);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 100);
+    analogWrite(ENB, 100);
+}
+// nếu tất cả các cảm biến điều tắt thì ta se cho roboot dừng
+if (cambien1 == LOW && cambien2 == LOW && cambiengiua == LOW && cambien3 == LOW && cambien4 == LOW) 
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 0);
+}
+}

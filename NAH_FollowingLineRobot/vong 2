@@ -1,0 +1,336 @@
+
+int Robot_stop_distance = 15;
+
+const int trigPin = 8; 
+const int echoPin = 7; 
+
+int ENA = 10; 
+int IN1 = 2;
+int IN2 = 3;
+
+int ENB = 11; 
+int IN3 = 4;
+int IN4 = 5;
+
+int NAH7 = A0;
+int NAH8 = A1;
+int NAH9 = A2;
+int NAH10 = A3;
+int NAH11 = A4;
+
+long duration; //
+int distance;  // biến khoảng cách
+
+
+void setup() {
+
+  pinMode(NAH7,INPUT); 
+  pinMode(NAH8,INPUT);
+  pinMode(NAH9,INPUT);
+  pinMode(NAH10,INPUT);
+  pinMode(NAH11,INPUT);
+
+  pinMode(IN1,OUTPUT);
+  pinMode(IN2,OUTPUT);
+  pinMode(IN3,OUTPUT);
+  pinMode(IN4,OUTPUT);
+  pinMode(ENA,OUTPUT);
+  pinMode(ENB,OUTPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  delay(2000);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+
+  int trai1 = digitalRead(NAH7);
+  int trai2 = digitalRead(NAH8);
+  int giua = digitalRead(NAH9);
+  int phai2 = digitalRead(NAH10);
+  int phai1 = digitalRead(NAH11);
+
+      if (distance > Robot_stop_distance)
+{
+if (trai1 == 1 && trai2 == 1 && giua == 0 && phai2 == 1 && phai1 == 1) // 11011 di thang
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 130);
+}
+if (trai1 == 1 && trai2 == 0 && giua == 1 && phai2 == 1 && phai1 == 1) // 10111 re trai 
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 130); 
+}
+if (trai1 == 1 && trai2 == 1 && giua == 1 && phai2 == 0 && phai1 == 1) // 11101 re phai
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 0);
+}
+// re trai
+if (trai1 == 0 && trai2 == 1 && giua == 0 && phai2 == 1 && phai1 == 1) // 01011 re trai goc 90 do bang 2CB
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 130);
+}
+if (trai1 == 0 && trai2 == 0 && giua == 0 && phai2 == 1 && phai1 == 1) // 00011 re trai goc 90 do bang 3CB
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 130);
+}
+if (trai1 == 1 && trai2 == 0 && giua == 0 && phai2 == 1 && phai1 == 1) // 10011 re trai goc nhot
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 130);
+}
+// re phai
+if (trai1 == 1 && trai2 == 1 && giua == 0 && phai2 == 1 && phai1 == 0) // 11010 re phai goc 90 do bang 2CB
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 0);   
+}
+if (trai1 == 1 && trai2 == 1 && giua == 0 && phai2 == 0 && phai1 == 0) // 11000  re phai goc 90 do bang 3CB
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 0);
+}
+if (trai1 == 1 && trai2 == 1 && giua == 0 && phai2 == 0 && phai1 == 1) // 11001  re phai goc nhot
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 0);
+}
+//else if (trai1 == 1 && trai2 == 1 && giua == 1 && phai2 == 1 && phai1 == 1) // 11111 di thang
+//{
+//    forward(); //robot đi đi thẳng với thời gian là 500 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+//    delay(75);
+//     Robot_stop(); //robot dừng lại với thời gian là 100 ms
+//    delay(100);
+//    
+//}  
+}  
+    
+
+ else if (distance < Robot_stop_distance)
+  {
+
+    Robot_stop(); //robot dừng lại với thời gian là 300 ms 
+    delay(500);
+
+    Turn_left(); //robot xoay trái với thời gian là 300 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+    delay(750);
+    Robot_stop(); //robot dừng lại với thời gian là 100 ms
+    delay(500);
+
+    forward(); //robot đi đi thẳng với thời gian là 500 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+    delay(450);
+    Robot_stop(); //robot dừng lại với thời gian là 100 ms
+    delay(500);
+// re trai va di thang goc 90 do
+    Turn_right();//robot xoay phải với thời gian là 500 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+    delay(600);
+    Robot_stop(); //robot dừng lại với thời gian là 100 ms
+    delay(500);
+    
+    forward(); //robot đi thẳng với thời gian là 550 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+    delay(700);
+    Robot_stop(); //robot dừng lại với thời gian là 100 ms
+    delay(500);
+    
+// re trai   
+        Turn_right(); //robot xoay trái với thời gian là 300 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+    delay(550);
+    Robot_stop(); //robot dừng lại với thời gian là 100 ms
+    delay(500);
+
+    forward(); //robot đi đi thẳng với thời gian là 500 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+    delay(425);
+    Robot_stop(); //robot dừng lại với thời gian là 100 ms
+    delay(500);
+    
+    Turn_left();//robot xoay phải với thời gian là 500 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+    delay(900);
+    Robot_stop(); //robot dừng lại với thời gian là 100 ms
+    delay(100);
+if (trai1 == 1 && trai2 == 1 && giua == 0 && phai2 == 1 && phai1 == 1) // 11011 di thang
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 130);
+}
+else if (trai1 == 1 && trai2 == 0 && giua == 1 && phai2 == 1 && phai1 == 1) // 10111 re trai 
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 130); 
+}
+else if (trai1 == 1 && trai2 == 1 && giua == 1 && phai2 == 0 && phai1 == 1) // 11101 re phai
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 0);
+}
+// re trai
+else if (trai1 == 0 && trai2 == 1 && giua == 0 && phai2 == 1 && phai1 == 1) // 01011 re trai goc 90 do bang 2CB
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 130);
+}
+else if (trai1 == 0 && trai2 == 0 && giua == 0 && phai2 == 1 && phai1 == 1) // 00011 re trai goc 90 do bang 3CB
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 130);
+}
+else if (trai1 == 1 && trai2 == 0 && giua == 0 && phai2 == 1 && phai1 == 1) // 10011 re trai goc nhot
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,HIGH);
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 130);
+}
+// re phai
+else if (trai1 == 1 && trai2 == 1 && giua == 0 && phai2 == 1 && phai1 == 0) // 11010 re phai goc 90 do bang 2CB
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 0);   
+}
+else if (trai1 == 1 && trai2 == 1 && giua == 0 && phai2 == 0 && phai1 == 0) // 11000  re phai goc 90 do bang 3CB
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 0);
+}
+else if (trai1 == 1 && trai2 == 1 && giua == 0 && phai2 == 0 && phai1 == 1) // 11001  re phai goc nhot
+{
+    digitalWrite(IN1,LOW);
+    digitalWrite(IN2,HIGH);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+    analogWrite(ENA, 130);
+    analogWrite(ENB, 0);
+}
+else if (trai1 == 1 && trai2 == 1 && giua == 1 && phai2 == 1 && phai1 == 1) // 11111 di thang
+{
+    forward(); //robot đi đi thẳng với thời gian là 500 ms (Các bạn điều chỉnh thông số này sao cho phù hợp với thực tế)
+    delay(75);
+     Robot_stop(); //robot dừng lại với thời gian là 100 ms
+    delay(100);
+    
+}    
+      
+  }
+}
+void forward()
+{
+  //motor A tiến
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  //motor B tiến
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENA, 130);
+  analogWrite(ENB, 130);
+}
+
+
+void Turn_right()
+{
+  //motor A lùi
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  //motor B tiến
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENA, 0);
+  analogWrite(ENB, 130);
+}
+void Turn_left()
+{
+  //motor A tiến
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  //motor B lùi
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENA, 130);
+  analogWrite(ENB, 0);
+}
+void Robot_stop() 
+{
+  //motor A dung
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  //motor B dung
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENA, 0);
+  analogWrite(ENB, 0);
+}
